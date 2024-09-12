@@ -1,7 +1,14 @@
 package sn.ahiba.gmembrebacken.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.ResponseEntity;
 import sn.ahiba.gmembrebacken.entities.Section;
 
-public interface SectionRepository extends JpaRepository<Section,Long> {
+import java.util.Optional;
+
+public interface SectionRepository extends JpaRepository<Section, Long> {
+
+    public Optional<Section> findByCode(String code);
+
+    public ResponseEntity<?> deleteByCode(String code);
 }

@@ -1,14 +1,18 @@
-package sn.ahiba.gmembrebacken.entities;
+package sn.ahiba.gmembrebacken.dto;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import sn.ahiba.gmembrebacken.entities.Dahira;
+import sn.ahiba.gmembrebacken.entities.Fonction;
+import sn.ahiba.gmembrebacken.entities.Section;
 
-@Entity
-public class Membre {
+public class MembreDTO {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private long age;
-    @Column(name = "MATRICULE", nullable = false, unique = true)
+
     private String matricule;
     private String prenom;
     private String nom;
@@ -16,18 +20,16 @@ public class Membre {
     private String telephone;
     private String scolarite;
     private String adresse;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn( name="DAHIRACODE", referencedColumnName = "DAHIRACODE", nullable = false)
+
     private Dahira dahira;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn( name="FONCTIONCODE", referencedColumnName = "FONCTIONCODE", nullable = false)
+
     private Fonction fonction;
 
-   // @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn( name="SECTIONCODE", referencedColumnName = "SECTIONCODE", nullable = true)
-    //private Section section;
 
-    public Membre(Long id, long age, String matricule, String prenom, String nom, String sexe, String telephone, String scolarite, String adresse) {
+    private Section section;
+
+
+    public MembreDTO(Long id, long age, String matricule, String prenom, String nom, String sexe, String telephone, String scolarite, String adresse, Dahira dahira, Fonction fonction, Section section) {
         this.id = id;
         this.age = age;
         this.matricule = matricule;
@@ -37,13 +39,12 @@ public class Membre {
         this.telephone = telephone;
         this.scolarite = scolarite;
         this.adresse = adresse;
+        this.dahira = dahira;
+        this.fonction = fonction;
+        this.section = section;
     }
 
-    public Membre() {
-
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -131,11 +132,11 @@ public class Membre {
         this.fonction = fonction;
     }
 
-   // public Section getSection() {
-     //   return section;
-   // }
+    public Section getSection() {
+        return section;
+    }
 
-   // public void setSection(Section section) {
-       // this.section = section;
-   // }
+    public void setSection(Section section) {
+        this.section = section;
+    }
 }
